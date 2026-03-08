@@ -1,13 +1,22 @@
 {
   "version": 2,
   "framework": "nextjs",
-  "env": {
-    "NANO_BANANA_API_KEY": "@nano_banana_api_key",
-    "DEEP_RESEARCH_CONFIG": "@deep_research_config"
-  },
   "images": {
-    "sizes": [320, 480, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    "domains": ["images.unsplash.com"],
+    "sizes": [
+      320,
+      480,
+      640,
+      750,
+      828,
+      1080,
+      1200,
+      1920,
+      2048,
+      3840
+    ],
+    "domains": [
+      "images.unsplash.com"
+    ],
     "minimumCacheTTL": 60
   }
 }
