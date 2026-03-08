@@ -16,6 +16,7 @@ import DashboardGrid, { ButtonProps } from '@/components/DashboardGrid';
 const buttons: ButtonProps[] = [
   { id: 'lectures', title: 'المحاضرات', icon: 'MonitorPlay' as const, description: 'الوصول إلى الدورات التدريبية المعتمدة' },
   { id: 'research', title: 'البحوث الجامعية', icon: 'GraduationCap' as const, description: 'نظام إدارة البحث الأكاديمي الشمولي' },
+  { id: 'academic-agent', title: 'الوكيل الأكاديمي المستقل', icon: 'BrainCircuit' as const, description: 'الباحث والمدرس الخصوصي الآلى (نمط جينماي)' },
   { id: 'audit', title: 'فحص وتعديل البحوث', icon: 'FileCheck' as const, description: 'التدقيق المنهجي وفق المعايير السبعة' },
   { id: 'encyclopedia', title: 'الموسوعة الشمولية', icon: 'Globe' as const, description: 'قاعدة المعارف الطبية الشمولية' },
   { id: 'editor', title: 'المحرر الذكي', icon: 'Bot' as const, description: 'التأليف الأكاديمي المدعوم بالذكاء الاصطناعي' },
