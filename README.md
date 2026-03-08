@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# منظومة الجامعة العالمية للطب الشمولي (2026) 🎓🌍
 
-## Getting Started
+بوابة الأكاديمية الذكية القائمة على منهجية **"الفقيه الباحث"** والتحليل الشمولي المعمق.
 
-First, run the development server:
+## 🌟 الرؤية المنهجية
+يعتمد هذا النظام على المنهج المدمج المقارن، حيث لا يكتفي بالبحث السطحي، بل يغوص في أعماق المادة العلمية لربطها بـ **الأبعاد الستة** و **الضوابط السبعة** للبحث الرصين.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📐 الركائز الأساسية:
+1.  **الأبعاد الستة للتحليل:**
+    *   عضوي، نفسي، روحي، عاطفي، اجتماعي، وكوني.
+2.  **الضوابط السبعة للبحث:**
+    *   الجمع، الدمج، المقارنة، الموازنة، التحليل، الاستدلال، والملائمة.
+3.  **ميزان المجلس التاسع:**
+    *   خوارزمية ذكية تضمن توازن الأبواب والفصول بفارق لا يتجاوز ±5 صفحات (قاعدة التوازن الأكاديمي).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 المكونات التقنية للمنظومة:
+*   **المحرر الذكي:** بيئة تأليف أكاديمية تضمن تطبيق الدستور والمنطق فوراً.
+*   **المختبر الشمولي:** كاشف الفجوات البحثية ومدقق المنهجية عبر مسح الملفات (PDF/Word).
+*   **الموسوعة الشمولية:** محرك بحث أكاديمي يربط النتائج بالمسارات الحيوية والنواقل العصبية والمدارس القديمة.
+*   **المحاضرات الأكاديمية:** "مصنع محتوى" يقوم بتوليد إنفوجرافيك تعليمي عبر وكيل **Nano Banana 2** وتحويل المحاضرات لشرائح عرض سينمائية.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 الإدارة والتحكم:
+النظام مزود بـ **Auto-Sync Agent** يقوم بمزامنة كل تعديل فكري وبحثي مع مستودع GitHub آلياً مع رسائل حفظ ذكية توثق التقدم الأكاديمي.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+**تنبيه:** هذا النظام محمي بموجب قوانين الملكية الفكرية الخاصة بـ **الجامعة العالمية للطب الشمولي**.
