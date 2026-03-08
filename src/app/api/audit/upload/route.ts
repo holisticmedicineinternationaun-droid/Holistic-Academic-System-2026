@@ -1,14 +1,6 @@
 import { NextResponse } from 'next/server';
 
-// Next.js Route Segment Config for Body Size
-// We set it to 200MB as requested
-export const config = {
-    api: {
-        bodyParser: {
-            sizeLimit: '200mb',
-        },
-    },
-};
+
 
 export async function POST(request: Request) {
     try {
