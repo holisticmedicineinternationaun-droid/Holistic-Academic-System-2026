@@ -11,9 +11,9 @@ import {
   Workflow
 } from 'lucide-react';
 import RulesSection from '@/components/RulesSection';
-import DashboardGrid from '@/components/DashboardGrid';
+import DashboardGrid, { ButtonProps } from '@/components/DashboardGrid';
 
-const buttons = [
+const buttons: ButtonProps[] = [
   { id: 'lectures', title: 'المحاضرات', icon: 'MonitorPlay', description: 'الوصول إلى الدورات التدريبية المعتمدة' },
   { id: 'research', title: 'البحوث الجامعية', icon: 'GraduationCap', description: 'نظام إدارة البحث الأكاديمي الشمولي' },
   { id: 'audit', title: 'فحص وتعديل البحوث', icon: 'FileCheck', description: 'التدقيق المنهجي وفق المعايير السبعة' },

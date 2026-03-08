@@ -13,7 +13,7 @@ const IconMap = {
     Bot
 } as const;
 
-interface ButtonProps {
+export interface ButtonProps {
     id: string;
     title: string;
     icon: keyof typeof IconMap;
