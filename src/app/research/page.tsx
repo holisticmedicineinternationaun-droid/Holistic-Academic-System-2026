@@ -15,6 +15,7 @@ import {
     FileText
 } from 'lucide-react';
 import Link from 'next/link';
+import { useAcademicStore } from '@/hooks/holistic-core/use-academic-store';
 
 const DEGREES = [
     { id: 'diploma', label: 'دبلوم احترافي', min: 100, max: 300, icon: BookOpen },
@@ -54,6 +55,7 @@ export default function UniversityResearchWizard() {
             }
 
             setGeneratedStructure(structure);
+            useAcademicStore.getState().setProjectMeta(title, selectedDegree.label, structure);
             setIsGenerating(false);
             setStep(2);
         }, 2000);

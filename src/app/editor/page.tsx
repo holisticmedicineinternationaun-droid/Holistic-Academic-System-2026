@@ -44,6 +44,17 @@ export default function SmartEditorPage() {
     const [isAuditing, setIsAuditing] = useState(false);
     const [isExpanding, setIsExpanding] = useState(false);
 
+    // Sync from Store (Wizard)
+    useEffect(() => {
+        const store = useAcademicStore.getState();
+        if (store.currentTitle) {
+            setTitle(store.currentTitle);
+        }
+        if (store.currentStructure && store.currentStructure.length > 0) {
+            setChapters(store.currentStructure);
+        }
+    }, []);
+
     // Calculate Balance (Max diff between chapters should be ±5)
     const getBalanceStatus = () => {
         if (chapters.length < 2) return { status: 'متوازن', color: 'text-emerald-500' };
