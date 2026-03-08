@@ -21,7 +21,8 @@ import {
     Info,
     History,
     Scale,
-    Workflow
+    Workflow,
+    PlusCircle
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAcademicStore } from '@/hooks/holistic-core/use-academic-store';
@@ -34,24 +35,54 @@ const MOCK_LECTURE = {
             id: 'ch1',
             title: 'الباب الأول: التأصيل المنهجي للطاقة الحيوية',
             sections: [
-                { id: 's1', title: 'المبحث الأول: تعريف الطاقة في المدارس القديمة', pages: 15 },
-                { id: 's2', title: 'المبحث الثاني: المفهوم الفيزيائي المعاصر للمجال الطاقي', pages: 14 },
+                {
+                    id: 's1',
+                    title: 'المبحث الأول: تعريف الطاقة في المدارس القديمة',
+                    pages: 15,
+                    content: 'في هذا المبحث، نقوم بتطبيق "الضوابط السبعة" للبحث العلمي لضمان شمولية الطرح. نبدأ بـ الجمع بين الأدلة التراثية و الدمج مع المعطيات المخبرية الحديثة. إن الهدف هو تحقيق المقارنة الموضوعية التي تؤدي إلى الموازنة بين مختلف المدارس الطبية، مع الحفاظ على دقة الاستدلال و الملائمة للسياق المعاصر.'
+                },
+                {
+                    id: 's2',
+                    title: 'المبحث الثاني: المفهوم الفيزيائي المعاصر للمجال الطاقي',
+                    pages: 14,
+                    content: 'ننتقل هنا لتحليل المجال الطاقي من منظور ميكانيكا الكم، حيث نربط بين مفهوم "الأثير" في النصوص القديمة وبين "المجال الموحد" في الفيزياء الحديثة. هذا الربط ليس مجرد فحص نظري، بل هو تأصيل علمي لكيفية تأثير النوايا والمشاعر على المادة الحيوية.'
+                },
             ]
         },
         {
             id: 'ch2',
             title: 'الباب الثاني: البعد العضوي والنواقل العصبية',
             sections: [
-                { id: 's3', title: 'المبحث الأول: كيمياء الدماغ والمشاعر العميقة', pages: 16 },
-                { id: 's4', title: 'المبحث الثاني: أثر الغذاء على التوازن الهرموني', pages: 15 },
+                {
+                    id: 's3',
+                    title: 'المبحث الأول: كيمياء الدماغ والمشاعر العميقة',
+                    pages: 16,
+                    content: 'نركز في هذا القسم على محور (الدماغ-الأمعاء) وكيف يتحكم التوازن الحيوي في النواقل العصبية مثل السيروتونين والدوبامين. الدراسة تثبت أن المشاعر ليست مجرد ردود فعل نفسية بل هي تفاعلات كيميائية حيوية تتأثر بالتغذية والبيئة المحيطة.'
+                },
+                {
+                    id: 's4',
+                    title: 'المبحث الثاني: أثر الغذاء على التوازن الهرموني',
+                    pages: 15,
+                    content: 'التوازن الهرموني هو مرآة الموازنة الشمولية. نناقش هنا الأطعمة "المعدلة للمزاج" ودورها في ضبط الغدد الصماء، مع التركيز على "القانون السابع" وهو الملائمة، حيث تختلف الاحتياجات الغذائية حسب الطبيعة البشرية والظروف المناخية.'
+                },
             ]
         },
         {
             id: 'ch3',
             title: 'الباب الثالث: البعد الروحي والكوني',
             sections: [
-                { id: 's5', title: 'المبحث الأول: تأثير المجالات المغناطيسية الكونية', pages: 15 },
-                { id: 's6', title: 'المبحث الثاني: الروحانية كعنصر استشفائي أساسي', pages: 16 },
+                {
+                    id: 's5',
+                    title: 'المبحث الأول: تأثير المجالات المغناطيسية الكونية',
+                    pages: 15,
+                    content: 'لاحظ الارتباط الوثيق بين البعد العضوي والمجال الكوني في هذه النقطة بالذات، حيث تتأثر الدورات البيولوجية ليس فقط بالغذاء، بل بالدورات البيولوجية المرتبطة بالمجال المغناطيسي للأرض والنشاط الشمسي.'
+                },
+                {
+                    id: 's6',
+                    title: 'المبحث الثاني: الروحانية كعنصر استشفائي أساسي',
+                    pages: 16,
+                    content: 'الختام يكون مع البعد الروحي، وهو المحرك الأساسي للأبعاد الستة. نوضح هنا كيف يساهم التأمل والسكينة الروحية في تحفيز نظام المناعة (Immunology) وتسريع عمليات التشافي الذاتي وفق ميزان المجلس التاسع.'
+                },
             ]
         }
     ]
@@ -76,6 +107,13 @@ export default function AcademicLecturesPage() {
     const [isGeneratingVisuals, setIsGeneratingVisuals] = useState(false);
     const [generatedVisual, setGeneratedVisual] = useState<string | null>(null);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+    // New State for Modal and Inputs
+    const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+    const [newLectureForm, setNewLectureForm] = useState({
+        title: '',
+        dimensions: [] as string[]
+    });
 
     // Flatten all sections into slides for presentation mode
     const allSlides = MOCK_LECTURE.chapters.flatMap(ch =>
@@ -142,6 +180,15 @@ export default function AcademicLecturesPage() {
                             عرض المحاضرة
                         </button>
                     </div>
+
+                    <button
+                        onClick={() => setIsNewModalOpen(true)}
+                        className="flex items-center gap-2 px-6 py-2 rounded-xl text-sm font-bold bg-amber-500/10 text-amber-500 border border-amber-500/30 hover:bg-amber-500 transition-all hover:text-slate-950"
+                    >
+                        <PlusCircle className="w-5 h-5" />
+                        محاضرة جديدة
+                    </button>
+
                     <button
                         onClick={() => {
                             const buffer = useAcademicStore.getState().searchBuffer;
@@ -231,10 +278,7 @@ export default function AcademicLecturesPage() {
 
                                     <div className="prose prose-invert max-w-none">
                                         <p className="text-xl text-slate-400 leading-relaxed text-justify">
-                                            في هذا المبحث، نقوم بتطبيق "الضوابط السبعة" للبحث العلمي لضمان شمولية الطرح. نبدأ بـ <strong>الجمع</strong> بين الأدلة التراثية و <strong>الدمج</strong> مع المعطيات المخبرية الحديثة. إن الهدف هو تحقيق <strong>المقارنة</strong> الموضوعية التي تؤدي إلى <strong>الموازنة</strong> بين مختلف المدارس الطبية، مع الحفاظ على دقة <strong>الاستدلال</strong> و <strong>الملائمة</strong> للسياق المعاصر.
-                                        </p>
-                                        <p className="text-xl text-slate-400 leading-relaxed text-justify mt-6">
-                                            لاحظ الارتباط الوثيق بين البعد العضوي والمجال الكوني في هذه النقطة بالذات، حيث تتأثر النواقل العصبية (الدوبامين والسيروتونين) ليس فقط بالغذاء، بل بالدورات البيولوجية المرتبطة بالمجال المغناطيسي للأرض.
+                                            {(selectedSection as any).content}
                                         </p>
                                     </div>
 
@@ -360,7 +404,7 @@ export default function AcademicLecturesPage() {
                                 </div>
 
                                 <p className="text-3xl text-slate-400 leading-relaxed max-w-4xl font-light italic">
-                                    دراسة أكاديمية معمقة تدمج البعد العضوي والنفسي والروحي بما يطابق ميزان المجلس التاسع.
+                                    {(allSlides[currentSlideIndex] as any).content}
                                 </p>
 
                                 <div className="flex items-center gap-8 pt-8">
@@ -398,6 +442,98 @@ export default function AcademicLecturesPage() {
                     </div>
                 </div>
             )}
+
+            {/* New Lecture Modal Overlay */}
+            <AnimatePresence>
+                {isNewModalOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/80 backdrop-blur-md"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            className="bg-slate-900 border border-white/10 p-10 rounded-[40px] shadow-2xl max-w-2xl w-full space-y-8"
+                        >
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-2xl font-black text-white flex items-center gap-3">
+                                    <MonitorPlay className="w-8 h-8 text-amber-500" />
+                                    تأسيس محاضرة أكاديمية جديدة
+                                </h2>
+                                <button
+                                    onClick={() => setIsNewModalOpen(false)}
+                                    className="p-3 hover:bg-white/5 rounded-2xl text-slate-500 hover:text-white transition-colors"
+                                >
+                                    <ArrowLeft className="w-6 h-6 rotate-180" />
+                                </button>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <label className="text-xs font-black text-slate-500 uppercase tracking-widest mr-2">عنوان المحاضرة</label>
+                                    <input
+                                        type="text"
+                                        placeholder="مثال: فيزياء الوعي وأبعاد النفس الستة..."
+                                        className="w-full bg-slate-950 border border-white/5 rounded-2xl p-4 text-white placeholder:text-slate-700 focus:border-amber-500/50 outline-none transition-all"
+                                        value={newLectureForm.title}
+                                        onChange={(e) => setNewLectureForm({ ...newLectureForm, title: e.target.value })}
+                                    />
+                                </div>
+
+                                <div className="space-y-4">
+                                    <label className="text-xs font-black text-slate-500 uppercase tracking-widest mr-2">الأبعاد الشمولية المستهدفة</label>
+                                    <div className="grid grid-cols-3 gap-3">
+                                        {SIX_DIMENSIONS.map(dim => (
+                                            <button
+                                                key={dim.id}
+                                                onClick={() => {
+                                                    const current = newLectureForm.dimensions;
+                                                    const updated = current.includes(dim.id)
+                                                        ? current.filter(id => id !== dim.id)
+                                                        : [...current, dim.id];
+                                                    setNewLectureForm({ ...newLectureForm, dimensions: updated });
+                                                }}
+                                                className={`p-3 rounded-xl border text-[10px] font-bold transition-all flex items-center gap-2 ${newLectureForm.dimensions.includes(dim.id) ? 'bg-amber-500/20 border-amber-500 text-amber-500' : 'bg-white/5 border-white/5 text-slate-500 opacity-60 hover:opacity-100'}`}
+                                            >
+                                                <div className={`w-2 h-2 rounded-full ${dim.color}`} />
+                                                {dim.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="pt-4 flex gap-4">
+                                <button
+                                    onClick={() => {
+                                        if (!newLectureForm.title) {
+                                            alert('يرجى إدخال عنوان المحاضرة');
+                                            return;
+                                        }
+                                        alert(`جاري بدء البحث المنهجي لـ: ${newLectureForm.title}`);
+                                        setIsNewModalOpen(false);
+                                        // Reset form
+                                        setNewLectureForm({ title: '', dimensions: [] });
+                                    }}
+                                    className="flex-1 py-4 rounded-2xl bg-amber-500 text-slate-950 font-black text-sm hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-xl shadow-amber-500/20"
+                                >
+                                    <BrainCircuit className="w-5 h-5" />
+                                    بدء البحث العلمي المدمج
+                                </button>
+                                <button
+                                    onClick={() => setIsNewModalOpen(false)}
+                                    className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-slate-400 font-bold text-sm hover:bg-white/10 transition-all"
+                                >
+                                    إلغاء
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
