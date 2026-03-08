@@ -160,6 +160,7 @@ const generateAcademicStructure = (title: string, level: DegreeLevel) => {
 };
 
 export default function AcademicLecturesPage() {
+    const [activeTab, setActiveTab] = useState('studio'); // 'studio' or 'presentation'
     // Current Lecture Data
     const [academicData, setAcademicData] = useState<any>(null);
     const [selectedSection, setSelectedSection] = useState<any>(null);
