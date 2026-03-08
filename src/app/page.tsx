@@ -14,11 +14,11 @@ import RulesSection from '@/components/RulesSection';
 import DashboardGrid, { ButtonProps } from '@/components/DashboardGrid';
 
 const buttons: ButtonProps[] = [
-  { id: 'lectures', title: 'المحاضرات', icon: 'MonitorPlay', description: 'الوصول إلى الدورات التدريبية المعتمدة' },
-  { id: 'research', title: 'البحوث الجامعية', icon: 'GraduationCap', description: 'نظام إدارة البحث الأكاديمي الشمولي' },
-  { id: 'audit', title: 'فحص وتعديل البحوث', icon: 'FileCheck', description: 'التدقيق المنهجي وفق المعايير السبعة' },
-  { id: 'encyclopedia', title: 'الموسوعة الشمولية', icon: 'Globe', description: 'قاعدة المعارف الطبية الشمولية' },
-  { id: 'editor', title: 'المحرر الذكي', icon: 'Bot', description: 'التأليف الأكاديمي المدعوم بالذكاء الاصطناعي' },
+  { id: 'lectures', title: 'المحاضرات', icon: 'MonitorPlay' as const, description: 'الوصول إلى الدورات التدريبية المعتمدة' },
+  { id: 'research', title: 'البحوث الجامعية', icon: 'GraduationCap' as const, description: 'نظام إدارة البحث الأكاديمي الشمولي' },
+  { id: 'audit', title: 'فحص وتعديل البحوث', icon: 'FileCheck' as const, description: 'التدقيق المنهجي وفق المعايير السبعة' },
+  { id: 'encyclopedia', title: 'الموسوعة الشمولية', icon: 'Globe' as const, description: 'قاعدة المعارف الطبية الشمولية' },
+  { id: 'editor', title: 'المحرر الذكي', icon: 'Bot' as const, description: 'التأليف الأكاديمي المدعوم بالذكاء الاصطناعي' },
 ];
 
 export default function Home() {
