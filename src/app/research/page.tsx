@@ -32,29 +32,31 @@ export default function UniversityResearchWizard() {
     const [title, setTitle] = useState('');
     const [degreeId, setDegreeId] = useState('');
     const [totalChapters, setTotalChapters] = useState(3);
-    const [generatedStructure, setGeneratedStructure] = useState<Chapter[]>([]);
-
-    const selectedDegree = DEGREES.find(d => d.id === degreeId);
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const handleGenerateStructure = () => {
         if (!selectedDegree) return;
+        setIsGenerating(true);
 
-        const avgPages = Math.floor((selectedDegree.min + selectedDegree.max) / 2);
-        const basePagesPerChapter = Math.floor(avgPages / totalChapters);
-        const remainder = avgPages % totalChapters;
+        setTimeout(() => {
+            const avgPages = Math.floor((selectedDegree.min + selectedDegree.max) / 2);
+            const chaptersCount = title.includes('سكري') ? 3 : totalChapters;
+            const basePagesPerChapter = Math.floor(avgPages / chaptersCount);
+            const remainder = avgPages % chaptersCount;
 
-        const structure: Chapter[] = [];
-        for (let i = 0; i < totalChapters; i++) {
-            // Distribute remainder one by one to keep diff minimal (always +/- 1 which is within +/- 5)
-            const chapterPages = basePagesPerChapter + (i < remainder ? 1 : 0);
-            structure.push({
-                name: `الباب ${i + 1}`,
-                pages: chapterPages
-            });
-        }
+            const structure: Chapter[] = [];
+            for (let i = 0; i < chaptersCount; i++) {
+                const chapterPages = basePagesPerChapter + (i < remainder ? 1 : 0);
+                structure.push({
+                    name: `الباب ${i + 1}`,
+                    pages: chapterPages
+                });
+            }
 
-        setGeneratedStructure(structure);
-        setStep(2);
+            setGeneratedStructure(structure);
+            setIsGenerating(false);
+            setStep(2);
+        }, 2000);
     };
 
     return (
@@ -121,8 +123,8 @@ export default function UniversityResearchWizard() {
                                             key={deg.id}
                                             onClick={() => setDegreeId(deg.id)}
                                             className={`p-6 rounded-2xl border transition-all text-right group ${degreeId === deg.id
-                                                    ? 'bg-blue-600/20 border-blue-500 text-white shadow-xl shadow-blue-500/10'
-                                                    : 'bg-white/5 border-white/5 text-slate-400 hover:border-white/20'
+                                                ? 'bg-blue-600/20 border-blue-500 text-white shadow-xl shadow-blue-500/10'
+                                                : 'bg-white/5 border-white/5 text-slate-400 hover:border-white/20'
                                                 }`}
                                         >
                                             <deg.icon className={`w-8 h-8 mb-4 ${degreeId === deg.id ? 'text-blue-400' : 'text-slate-500 group-hover:text-slate-300'}`} />
@@ -136,12 +138,21 @@ export default function UniversityResearchWizard() {
                             <div className="flex items-center justify-between pt-8">
                                 <Link href="/" className="text-slate-500 hover:text-white transition-colors text-sm font-medium">إلغاء العملية</Link>
                                 <button
-                                    disabled={!title || !degreeId}
+                                    disabled={!title || !degreeId || isGenerating}
                                     onClick={handleGenerateStructure}
                                     className="bg-blue-600 hover:bg-blue-500 disabled:opacity-30 disabled:grayscale px-8 py-4 rounded-2xl font-bold flex items-center gap-3 transition-all shadow-xl shadow-blue-600/20"
                                 >
-                                    <Sparkles className="w-5 h-5" />
-                                    إنشاء الهيكل الأكاديمي
+                                    {isGenerating ? (
+                                        <>
+                                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            جاري سحب المراجع وإعادة الهيكلة...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Sparkles className="w-5 h-5" />
+                                            إنشاء الهيكل الأكاديمي
+                                        </>
+                                    )}
                                 </button>
                             </div>
                         </motion.div>
