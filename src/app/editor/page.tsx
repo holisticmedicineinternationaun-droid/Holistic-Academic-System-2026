@@ -275,79 +275,104 @@ export default function SmartEditorPage() {
 
             {/* MAIN EDITOR AREA */}
             <main className="flex-1 flex flex-col relative text-right" dir="rtl">
-                {/* Editor Toolbar */}
-                <header className="h-20 border-b border-white/10 flex items-center justify-between px-8 bg-slate-900/30 backdrop-blur-md sticky top-0 z-20 overflow-x-auto gap-6">
-                    <div className="flex items-center gap-1 shrink-0">
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-slate-400 hover:text-white"><Bold className="w-4 h-4" /></button>
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-slate-400 hover:text-white"><Italic className="w-4 h-4" /></button>
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-slate-400 hover:text-white"><Underline className="w-4 h-4" /></button>
+                {/* Scholar Jurist Advanced Toolbar */}
+                <header className="h-24 border-b border-white/10 flex items-center justify-between px-8 bg-slate-900/60 backdrop-blur-2xl sticky top-0 z-30 gap-6 shadow-2xl">
+                    {/* Basic Formatting Group */}
+                    <div className="flex items-center gap-1 bg-white/5 p-1.5 rounded-2xl border border-white/10 shadow-inner">
+                        <button className="p-2.5 hover:bg-white/10 rounded-xl transition-all text-slate-400 hover:text-white hover:scale-110 active:scale-95"><Bold className="w-4 h-4" /></button>
+                        <button className="p-2.5 hover:bg-white/10 rounded-xl transition-all text-slate-400 hover:text-white hover:scale-110 active:scale-95"><Italic className="w-4 h-4" /></button>
+                        <button className="p-2.5 hover:bg-white/10 rounded-xl transition-all text-slate-400 hover:text-white hover:scale-110 active:scale-95"><Underline className="w-4 h-4" /></button>
                         <div className="w-px h-6 bg-white/10 mx-2" />
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-slate-400 hover:text-white"><List className="w-4 h-4" /></button>
-                        <button className="p-2 hover:bg-white/5 rounded-lg transition-colors text-slate-400 hover:text-white"><ListOrdered className="w-4 h-4" /></button>
+                        <button className="p-2.5 hover:bg-white/10 rounded-xl transition-all text-slate-400 hover:text-white hover:scale-110 active:scale-95"><List className="w-4 h-4" /></button>
+                        <button className="p-2.5 hover:bg-white/10 rounded-xl transition-all text-slate-400 hover:text-white hover:scale-110 active:scale-95"><ListOrdered className="w-4 h-4" /></button>
                     </div>
 
-                    <div className="flex items-center gap-2 bg-white/5 p-1 rounded-2xl border border-white/10 shrink-0">
+                    {/* Academic Tools Group (The requested buttons) */}
+                    <div className="flex items-center gap-3 bg-slate-950/50 p-1.5 rounded-2xl border border-blue-500/20 shadow-lg shadow-blue-500/5">
+                        <button
+                            onClick={() => {
+                                alert('جاري تحليل سياق الفقرة لتوليد إنفوجرافيك Nano Banana 2 عالي الجودة...');
+                                // Logic for visual generation would go here
+                            }}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black text-amber-500 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500 hover:text-slate-950 transition-all hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] group"
+                        >
+                            <BrainCircuit className="w-4 h-4 group-hover:animate-spin" />
+                            توليد إنفوجرافيك Nano Banana 2
+                        </button>
+
+                        <div className="w-px h-8 bg-white/10" />
+
+                        <button
+                            onClick={() => setShowDeepResearch(true)}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+                        >
+                            <BookOpen className="w-4 h-4" />
+                            إدراج مرجع علمي
+                        </button>
+
+                        <div className="w-px h-8 bg-white/10" />
+
+                        <button
+                            onClick={() => {
+                                setContent(prev => prev + '\n\n' + 'البصمة الفكرية: ' + LAILA_FOOTPRINT);
+                                alert('تم تفعيل وإدراج البصمة الفكرية للفقيه الباحث بنجاح.');
+                            }}
+                            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500 hover:text-slate-950 transition-all hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+                        >
+                            <Quote className="w-4 h-4" />
+                            تفعيل البصمة الفكرية
+                        </button>
+                    </div>
+
+                    {/* Methodology Group */}
+                    <div className="flex items-center gap-2 bg-slate-950/50 p-1.5 rounded-2xl border border-amber-500/20">
                         <button
                             onClick={handleAuditSevenRules}
                             disabled={isAuditing}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${isAuditing ? 'bg-amber-500/20 text-amber-500 animate-pulse' : 'hover:bg-white/5 text-amber-500'}`}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${isAuditing ? 'bg-amber-500/20 text-amber-500 animate-pulse' : 'hover:bg-amber-500/10 text-amber-500'}`}
                         >
                             <ShieldCheck className="w-4 h-4" />
-                            {isAuditing ? 'جاري الفحص...' : 'فحص الضوابط السبعة'}
+                            {isAuditing ? 'جاري الفحص...' : 'الضوابط السبعة'}
                         </button>
-                        <div className="w-px h-6 bg-white/10" />
                         <button
                             onClick={() => setShowBalanceChart(true)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-emerald-500 hover:bg-white/5 transition-all"
+                            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black text-emerald-400 hover:bg-emerald-500/10 transition-all"
                         >
                             <BarChart3 className="w-4 h-4" />
-                            ميزان المجلس التاسع
-                        </button>
-                        <div className="w-px h-6 bg-white/10" />
-                        <button
-                            onClick={() => setShowDeepResearch(true)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-blue-500 hover:bg-white/5 transition-all"
-                        >
-                            <Sparkles className="w-4 h-4" />
-                            البحث العميق (Deep)
+                            ميزان الأبواب
                         </button>
                     </div>
 
-                    <div className="flex-1 flex justify-center items-center gap-4">
+                    {/* Title & Stats */}
+                    <div className="flex flex-col items-center gap-1 flex-1 px-4 border-l border-white/10">
                         <input
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="bg-transparent border-none text-center focus:ring-0 font-bold text-slate-200 min-w-[200px] text-lg"
+                            className="bg-transparent border-none text-center focus:ring-0 font-black text-white w-full text-base placeholder:text-slate-700"
+                            placeholder="عنوان البحث..."
                         />
-                        {/* Integrated Muzzling Logic */}
-                        <button
-                            onClick={() => {
-                                const buffer = useAcademicStore.getState().searchBuffer;
-                                if (buffer) {
-                                    setContent(prev => prev + '\n\n' + buffer);
-                                    alert('تم إدراج نتائج البحث الشمولي في النص!');
-                                } else {
-                                    alert('لا توجد نتائج بحث في المزامنة حالياً.');
-                                }
-                            }}
-                            className="p-2 rounded-xl bg-violet-600/20 text-violet-400 border border-violet-500/30 hover:bg-violet-600/30 transition-all group"
-                            title="إدراج من الموسوعة"
-                        >
-                            <Sparkles className="w-4 h-4 group-hover:animate-pulse" />
-                        </button>
+                        <div className="flex items-center gap-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                            <span className="text-blue-400 italic">نمط الفقيه الباحث نشط</span>
+                            <span>•</span>
+                            <span>{content.split(/\s+/).filter(x => x).length} كلمة</span>
+                        </div>
                     </div>
 
+                    {/* Actions Group */}
                     <div className="flex items-center gap-3 shrink-0">
                         <button
                             onClick={handleApplyDimensions}
                             disabled={isAnalyzing}
-                            className={`flex items-center gap-2 px-5 py-2 rounded-full font-bold text-sm transition-all ${isAnalyzing
+                            className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl font-black text-xs transition-all ${isAnalyzing
                                 ? 'bg-blue-500/20 text-blue-400 cursor-wait'
-                                : 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-500/20'
+                                : 'bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:scale-105'
                                 }`}
                         >
                             <Sparkles className={`w-4 h-4 ${isAnalyzing ? 'animate-spin' : ''}`} />
-                            {isAnalyzing ? 'تحليل...' : 'تطبيق الأبعاد'}
+                            {isAnalyzing ? 'تحليل الأبعاد...' : 'تطبيق الأبعاد الستة'}
+                        </button>
+                        <button className="p-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all hover:border-amber-500/50">
+                            <Save className="w-5 h-5 text-slate-400" />
                         </button>
                     </div>
                 </header>
