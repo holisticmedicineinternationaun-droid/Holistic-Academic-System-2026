@@ -123,10 +123,36 @@ export default function AcademicAutonomousAgent() {
         useAcademicStore.getState().setProjectMeta(title, 'وكيل مستقل', structure.chapters.map(c => ({ name: c.title, pages: 15 })));
     };
 
+    const handlePrint = () => {
+        if (!activeResult) return;
+        window.print();
+    };
+
     return (
         <div className="flex h-screen bg-[#020617] text-slate-100 font-sans overflow-hidden" dir="rtl">
+            <style jsx global>{`
+                @media print {
+                    aside:not(.print-content), main, .no-print {
+                        display: none !important;
+                    }
+                    .print-content {
+                        width: 100% !important;
+                        position: absolute !important;
+                        left: 0 !important;
+                        top: 0 !important;
+                        box-shadow: none !important;
+                        border: none !important;
+                        margin: 0 !important;
+                        padding: 0 40px !important;
+                    }
+                    body {
+                        background: white !important;
+                        color: black !important;
+                    }
+                }
+            `}</style>
             {/* Sidebar - History & Tools */}
-            <aside className="w-80 border-l border-white/5 bg-slate-900/50 backdrop-blur-xl flex flex-col shrink-0">
+            <aside className="w-80 border-l border-white/5 bg-slate-900/50 backdrop-blur-xl flex flex-col shrink-0 no-print">
                 <div className="p-6 border-b border-white/5">
                     <div className="flex items-center gap-3 mb-6">
                         <div className="p-2.5 rounded-2xl bg-blue-600 shadow-lg shadow-blue-500/20">
@@ -138,7 +164,18 @@ export default function AcademicAutonomousAgent() {
                         </div>
                     </div>
 
-                    <button className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                    <button
+                        onClick={() => {
+                            setMessages([{
+                                id: '1',
+                                role: 'agent',
+                                content: "أهلاً بك في محراب العلم الشمولي. أنا وكيلك الأكاديمي المستقل، المدرس الخصوصي والباحث المتمكن. زودني فقط بـ (عنوان البحث) وسأقوم ببناء منظومة معرفية متكاملة لك.",
+                                timestamp: new Date()
+                            }]);
+                            setActiveResult(null);
+                        }}
+                        className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                    >
                         <PlusCircle className="w-4 h-4" /> بحث أكاديمي جديد
                     </button>
                 </div>
@@ -162,7 +199,7 @@ export default function AcademicAutonomousAgent() {
             </aside>
 
             {/* Main Chat Interface */}
-            <main className="flex-1 flex flex-col relative bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent">
+            <main className="flex-1 flex flex-col relative bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent no-print">
 
                 {/* Chat Display Area */}
                 <div className="flex-1 overflow-y-auto p-12 space-y-8 scrollbar-hide">
@@ -175,15 +212,15 @@ export default function AcademicAutonomousAgent() {
                                 className={`flex gap-6 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                             >
                                 <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-lg ${msg.role === 'user'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-slate-800 text-blue-400 border border-white/10'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-slate-800 text-blue-400 border border-white/10'
                                     }`}>
                                     {msg.role === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
                                 </div>
                                 <div className={`max-w-2xl space-y-2 ${msg.role === 'user' ? 'text-left' : ''}`}>
                                     <div className={`p-6 rounded-3xl text-sm leading-relaxed shadow-xl ${msg.role === 'user'
-                                            ? 'bg-blue-600/10 border border-blue-500/20 text-blue-100'
-                                            : 'bg-slate-900/80 border border-white/5 text-slate-200 backdrop-blur-md'
+                                        ? 'bg-blue-600/10 border border-blue-500/20 text-blue-100'
+                                        : 'bg-slate-900/80 border border-white/5 text-slate-200 backdrop-blur-md'
                                         }`}>
                                         {msg.content}
                                     </div>
@@ -234,7 +271,7 @@ export default function AcademicAutonomousAgent() {
                         initial={{ x: 400, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: 400, opacity: 0 }}
-                        className="w-[500px] bg-white text-slate-900 overflow-y-auto p-12 shrink-0 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] z-20 border-r border-slate-200"
+                        className="w-[500px] bg-white text-slate-900 overflow-y-auto p-12 shrink-0 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] z-20 border-r border-slate-200 print-content"
                     >
                         <div className="max-w-md mx-auto space-y-12 pb-20">
                             {/* Academic Header */}
@@ -279,10 +316,19 @@ export default function AcademicAutonomousAgent() {
 
                             {/* Actions */}
                             <div className="flex gap-4 pt-10">
-                                <button className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all">
+                                <button
+                                    onClick={handlePrint}
+                                    className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all no-print"
+                                >
                                     <Download className="w-4 h-4" /> تحميل بصيغة PDF
                                 </button>
-                                <button className="p-4 border border-slate-200 rounded-2xl hover:bg-slate-50 transition-all">
+                                <button
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(window.location.href);
+                                        alert('تم نسخ رابط البحث لمشاركته.');
+                                    }}
+                                    className="p-4 border border-slate-200 rounded-2xl hover:bg-slate-50 transition-all no-print"
+                                >
                                     <Share2 className="w-4 h-4" />
                                 </button>
                                 <Link
