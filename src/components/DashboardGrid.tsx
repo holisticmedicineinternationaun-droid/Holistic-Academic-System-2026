@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MonitorPlay, GraduationCap, FileCheck, Globe, Bot } from 'lucide-react';
+import { MonitorPlay, GraduationCap, FileCheck, Globe, Bot, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
 
 const IconMap = {
@@ -10,7 +10,8 @@ const IconMap = {
     GraduationCap,
     FileCheck,
     Globe,
-    Bot
+    Bot,
+    BrainCircuit
 } as const;
 
 export interface ButtonProps {
@@ -31,7 +32,8 @@ export default function DashboardGrid({ buttons }: { buttons: ButtonProps[] }) {
                                 btn.id === 'audit' ? '/audit' :
                                     btn.id === 'encyclopedia' ? '/encyclopedia' :
                                         btn.id === 'lectures' ? '/lectures' :
-                                            '#'
+                                            btn.id === 'academic-agent' ? '/academic-agent' :
+                                                '#'
                     }
                     key={btn.id}
                     className="block contents"

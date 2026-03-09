@@ -6,7 +6,7 @@ import {
     Bold, Italic, Underline, List, ListOrdered, AlignLeft,
     AlignCenter, AlignRight, Save, ShieldCheck, BarChart3,
     FileText, Layout, Sparkles, AlertCircle, CheckCircle2,
-    BookOpen, History, Layers, BrainCircuit
+    BookOpen, History, Layers, BrainCircuit, Quote
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAcademicStore } from '@/hooks/holistic-core/use-academic-store';
