@@ -24,6 +24,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useAcademicStore } from '@/hooks/holistic-core/use-academic-store';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 // --- System Core Logic (Scholar-Jurist Brain) ---
 
@@ -132,51 +134,62 @@ export default function AcademicAutonomousAgent() {
 
         setIsDownloading(true);
         try {
-            // Dynamic imports to handle SSR and save bundle size
-            const html2canvas = (await import('html2canvas')).default;
-            const { jsPDF } = await import('jspdf');
+            // Create a temporary container for the clone to ensure full height and no scroll issues
+            const clone = element.cloneNode(true) as HTMLElement;
+            clone.style.width = '210mm'; // Standard A4 width
+            clone.style.height = 'auto';
+            clone.style.position = 'fixed';
+            clone.style.left = '-9999px';
+            clone.style.top = '0';
+            clone.style.backgroundColor = '#ffffff';
+            clone.style.color = '#000000';
+            clone.style.overflow = 'visible';
+            document.body.appendChild(clone);
 
-            const canvas = await html2canvas(element, {
+            // Wait a bit for fonts and images to be ready in the clone
+            await new Promise(r => setTimeout(r, 500));
+
+            const canvas = await html2canvas(clone, {
                 scale: 2,
                 useCORS: true,
                 logging: false,
-                backgroundColor: '#ffffff'
+                backgroundColor: '#ffffff',
+                windowWidth: 1200
             });
 
-            const imgData = canvas.toDataURL('image/png');
+            document.body.removeChild(clone);
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.95);
             const pdf = new jsPDF('p', 'mm', 'a4');
+
             const pdfWidth = pdf.internal.pageSize.getWidth();
             const pdfHeight = pdf.internal.pageSize.getHeight();
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-            const imgScaledWidth = imgWidth * ratio;
-            const imgScaledHeight = imgHeight * ratio;
 
-            // Handle multiple pages if content is long
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+
+            const imgWidth = pdfWidth;
+            const imgHeight = (canvasHeight * pdfWidth) / canvasWidth;
+
             let heightLeft = imgHeight;
             let position = 0;
-            const pageHeightInPx = (pdfHeight / pdfWidth) * imgWidth;
 
+            // Add first page
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            heightLeft -= pdfHeight;
+
+            // Add subsequent pages if needed
             while (heightLeft > 0) {
-                const pageCanvas = document.createElement('canvas');
-                pageCanvas.width = imgWidth;
-                pageCanvas.height = Math.min(heightLeft, pageHeightInPx);
-                const ctx = pageCanvas.getContext('2d');
-                ctx?.drawImage(canvas, 0, position, imgWidth, pageCanvas.height, 0, 0, imgWidth, pageCanvas.height);
-
-                const pageData = pageCanvas.toDataURL('image/png');
-                if (position > 0) pdf.addPage();
-                pdf.addImage(pageData, 'PNG', 0, 0, pdfWidth, (pageCanvas.height * pdfWidth) / imgWidth);
-
-                heightLeft -= pageHeightInPx;
-                position += pageHeightInPx;
+                position = heightLeft - imgHeight;
+                pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pdfHeight;
             }
 
             pdf.save(`${activeResult.title}.pdf`);
-        } catch (error) {
+        } catch (error: any) {
             console.error('PDF Generation Error:', error);
-            alert('عذراً، حدث خطأ أثناء توليد ملف PDF.');
+            alert(`عذراً، حدث خطأ أثناء توليد ملف PDF: ${error.message || 'خطأ غير معروف'}`);
         } finally {
             setIsDownloading(false);
         }
