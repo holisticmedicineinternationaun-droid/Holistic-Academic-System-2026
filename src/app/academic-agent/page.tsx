@@ -123,9 +123,63 @@ export default function AcademicAutonomousAgent() {
         useAcademicStore.getState().setProjectMeta(title, 'وكيل مستقل', structure.chapters.map(c => ({ name: c.title, pages: 15 })));
     };
 
-    const handlePrint = () => {
+    const [isDownloading, setIsDownloading] = useState(false);
+
+    const handleDownloadPDF = async () => {
         if (!activeResult) return;
-        window.print();
+        const element = document.querySelector('.print-content') as HTMLElement;
+        if (!element) return;
+
+        setIsDownloading(true);
+        try {
+            // Dynamic imports to handle SSR and save bundle size
+            const html2canvas = (await import('html2canvas')).default;
+            const { jsPDF } = await import('jspdf');
+
+            const canvas = await html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            });
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imgWidth = canvas.width;
+            const imgHeight = canvas.height;
+            const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+            const imgScaledWidth = imgWidth * ratio;
+            const imgScaledHeight = imgHeight * ratio;
+
+            // Handle multiple pages if content is long
+            let heightLeft = imgHeight;
+            let position = 0;
+            const pageHeightInPx = (pdfHeight / pdfWidth) * imgWidth;
+
+            while (heightLeft > 0) {
+                const pageCanvas = document.createElement('canvas');
+                pageCanvas.width = imgWidth;
+                pageCanvas.height = Math.min(heightLeft, pageHeightInPx);
+                const ctx = pageCanvas.getContext('2d');
+                ctx?.drawImage(canvas, 0, position, imgWidth, pageCanvas.height, 0, 0, imgWidth, pageCanvas.height);
+
+                const pageData = pageCanvas.toDataURL('image/png');
+                if (position > 0) pdf.addPage();
+                pdf.addImage(pageData, 'PNG', 0, 0, pdfWidth, (pageCanvas.height * pdfWidth) / imgWidth);
+
+                heightLeft -= pageHeightInPx;
+                position += pageHeightInPx;
+            }
+
+            pdf.save(`${activeResult.title}.pdf`);
+        } catch (error) {
+            console.error('PDF Generation Error:', error);
+            alert('عذراً، حدث خطأ أثناء توليد ملف PDF.');
+        } finally {
+            setIsDownloading(false);
+        }
     };
 
     return (
@@ -317,10 +371,20 @@ export default function AcademicAutonomousAgent() {
                             {/* Actions */}
                             <div className="flex gap-4 pt-10">
                                 <button
-                                    onClick={handlePrint}
-                                    className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all no-print"
+                                    onClick={handleDownloadPDF}
+                                    disabled={isDownloading}
+                                    className="flex-1 py-4 bg-slate-900 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-slate-800 transition-all no-print disabled:opacity-50"
                                 >
-                                    <Download className="w-4 h-4" /> تحميل بصيغة PDF
+                                    {isDownloading ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            جاري التصدير...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Download className="w-4 h-4" /> تحميل بصيغة PDF
+                                        </>
+                                    )}
                                 </button>
                                 <button
                                     onClick={() => {
