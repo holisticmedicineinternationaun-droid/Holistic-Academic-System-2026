@@ -34,6 +34,9 @@ export default function UniversityResearchWizard() {
     const [degreeId, setDegreeId] = useState('');
     const [totalChapters, setTotalChapters] = useState(3);
     const [isGenerating, setIsGenerating] = useState(false);
+    const [generatedStructure, setGeneratedStructure] = useState<Chapter[]>([]);
+
+    const selectedDegree = DEGREES.find(d => d.id === degreeId);
 
     const handleGenerateStructure = () => {
         if (!selectedDegree) return;
