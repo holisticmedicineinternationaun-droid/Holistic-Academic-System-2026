@@ -29,10 +29,10 @@ import html2canvas from 'html2canvas';
 
 // --- System Core Logic (Scholar-Jurist Brain) ---
 
-const LAILA_FOOTPRINT = "البصمة الفكرية للباحثة د. ليلى السسكاك: البحث الشمولي ليس مجرد جمع معلومات، بل هو صياغة كينونة معرفية تربط العرض بالجوهر وتكشف مكنونات الحقائق.";
+const LAILA_FOOTPRINT = "البصمة الفكرية الأكاديمية: إن البحث في علم (المسارات العصبية الطاقية الروحية) ليس مجرد رصدٍ للمعلومات، بل هو صياغة كينونة معرفية تربط الأصالة بالمعاصرة، وتكشف المكنونات الخفية وراء التوازن الحيوي في ظل الأبعاد الستة للإنسان.";
 
 const generateAutonomousContent = (topic: string, section: string, context: string = "") => {
-    return `وعلى أعتاب الاستبصار الأكاديمي، نقف اليوم لفك رموز هذه الظاهرة الموسومة بـ (${topic})، حيث لا يكتفي العقل بالوصف السطحي، بل يغوص في أعماق (الاستدلال) العقلي والوجداني ليربط المسكوت عنه بالمنطوق. إن المبحث الذي نسبر أغواره الآن، وهو (${section})، يمثل حلقة وصلٍ جوهرية في سلسلة (الموازنة) الحيوية، حيث تتآلف الأبعاد الستة (العضوية، النفسية، الروحية، العاطفية، الاجتماعية، والكونية) في وحدةٍ بنائيةٍ واحدة. إننا حين نُعمل ميزان (الملائمة) الأكاديمية، نجد أن كل خلية في هذا العرض العلمي تسطر ملحمةً من ملاحم الخلق، تتجاوز حدود الطب الكلاسيكي لتلامس آفاق الطب الشمولي. إن الترابط السردي هنا ليس مجرد رصفٍ للكلمات، بل هو هندسةٌ فكريةٌ تستوجب منا استحضار هيبة البحث وقوة الاستنباط، لنكشف عن تلك الأسرار التي لا تُبصرها إلا عيون الفقيه الباحث المتمكن. ${context}`;
+    return `في محراب هذا الاستقصاء الأكاديمي الموسوم بـ (${topic})، نجد أنفسنا أمام ضرورة حتمية لإعادة قراءة (المسارات العصبية النفسية الطاقية الروحية) كنسيجٍ واحد لا ينفصم. إن المبحث الذي نسبر أغواره الآن، وهو (${section})، يتجاوز التعريفات الكلاسيكية ليغوص في عمق (الأصالة والمعاصرة)، مستدلاً بميزان (الموازنة) الحيوية والضوابط السبعة (الجمع، الدمج، المقارنة، الموازنة، التحليل، الاستدلال، الملاءمة). إننا حين نُخضع هذه الظاهرة لمشرط التحليل الأكاديمي الشمولي، يتكشف لنا كيف تتقاطع (الأبعاد الستة) للوجود الإنساني مع تدفقات الطاقة والروابط الروحية العميقة، حتى تلك التي تلامس القوى الخفية وعالم الاستبصار. إن السردية العلمية هنا تقتضي منا ربط 'عالم الشهادة' في الجهاز العصب بإشارات 'عالم الغيب' في التوازن الروحي، لنخلص إلى رؤيةٍ معرفية فكرية فريدة تليق بمرتبة البحث في (الدبلوم الاحترافي) وما ورائه. ${context}`;
 };
 
 interface Message {
@@ -87,22 +87,33 @@ export default function AcademicAutonomousAgent() {
 
         // Step 2: Content Generation Simulation
         const structure = {
-            title: title,
+            title: title + " - دراسة بحثية وفق منهج الطب الشمولي",
+            registration: "رقم الاعتماد العلمي: OS-01 | قسم الدراسات العليا",
             chapters: [
                 {
-                    title: "الباب الأول: التأصيل المنهجي والأبعاد الستة",
-                    content: generateAutonomousContent(title, "المدخل الروحاني والموضع الأورجاني"),
-                    visual: "Infographic: Nano Banana 2 - The Six Dimensions Integration Map"
+                    title: "الفصل الأول: التأصيل التاريخي لمسارات الطب الشمولي والروحي",
+                    content: generateAutonomousContent(title, "تحليل الجذور في الحضارات القديمة والربط بالموازنة الحديثة"),
+                    visual: "Infographic: Nano Banana 2 - Historical Evolution of Neural-Energy Pathways"
                 },
                 {
-                    title: "الباب الثاني: الموازنة الحيوية والاستدلال العلمي",
-                    content: generateAutonomousContent(title, "ميزان الملاءمة بين الدليل والواقع"),
-                    visual: "Conceptual Diagram: Scholar-Jurist Reasoning Loop"
+                    title: "الفصل الثاني: تشريح المسارات العصبية النفسية وعالم القوى الخفية",
+                    content: generateAutonomousContent(title, "دراسة الرابط بين الجهاز العصبي والظواهر الروحية المستترة"),
+                    visual: "3D Visualization: The Six Dimensions Interaction Matrix"
                 },
                 {
-                    title: "الباب الثالث: الاستشراف الطبقي والبصمة الفكرية",
-                    content: generateAutonomousContent(title, "نتائج الربط بين الخلية والكون"),
-                    visual: "Final Vision: Holistic Academic Synthesis"
+                    title: "الفصل الثالث: تطبيق الضوابط السبعة في الملاءمة والاستدلال",
+                    content: generateAutonomousContent(title, "مرحلة الدمج والموازنة لنيل الحقائق العلمية الشمولية"),
+                    visual: "Logic Tree: Scholar-Jurist Seven Rules of Inference"
+                },
+                {
+                    title: "الفصل الرابع: الأبعاد الستة وتأثير الأخلط والأمزجة",
+                    content: generateAutonomousContent(title, "تأثير البيئة والروحانية على فيزيولوجية المسارات"),
+                    visual: "Color Chart: Humoral Balance and Spiritual Resonance"
+                },
+                {
+                    title: "الخاتمة: البصمة الفكرية والاستبصار المعرفي النهائي",
+                    content: generateAutonomousContent(title, "التوصيات النهائية وصياغة الكينونة المعرفية الموحدة"),
+                    visual: "Signature: Intellectual Footprint Certification"
                 }
             ],
             footprint: LAILA_FOOTPRINT
@@ -343,10 +354,11 @@ export default function AcademicAutonomousAgent() {
                         <div className="max-w-md mx-auto space-y-12 pb-20">
                             {/* Academic Header */}
                             <div className="text-center space-y-4 border-b-2 border-slate-900 pb-10">
-                                <h4 className="text-sm font-black uppercase tracking-widest opacity-60">جامعة الطب الشمولي - الوكيل الأكاديمي</h4>
-                                <h1 className="text-3xl font-black leading-tight">{activeResult.title}</h1>
-                                <div className="h-1 w-20 bg-slate-900 mx-auto" />
-                                <p className="text-xs font-bold italic">تم الإنتاج بواسطة محرك الفقيه الباحث المستقل</p>
+                                <h4 className="text-sm font-black uppercase tracking-widest opacity-60">جامعة الطب الشمولي - الوكيل الأكاديمي المستقل</h4>
+                                <p className="text-[10px] font-bold text-blue-600 tracking-tighter">{activeResult.registration}</p>
+                                <h1 className="text-3xl font-black leading-tight mt-2">{activeResult.title}</h1>
+                                <div className="h-1 w-20 bg-slate-900 mx-auto mt-4" />
+                                <p className="text-xs font-bold italic text-slate-500">تم الإنتاج بواسطة (محرك الفقيه الباحث) - الدبلوم الاحترافي</p>
                             </div>
 
                             {/* Chapters */}
